@@ -1,5 +1,6 @@
 import re
 import json
+import sys
 import requests
 
 # Function to extract 4-byte selectors from bytecode
@@ -37,8 +38,12 @@ def generate_abi(bytecode):
     abi_json = json.dumps(abi_methods, indent=4)
     return abi_json
 
-# Example usage
 if __name__ == "__main__":
-    bytecode = input("Enter contract bytecode: ").strip()
+    bytecode = sys.argv[1].strip()  # Read bytecode passed as argument
     abi_result = generate_abi(bytecode)
-    print("\nExtracted ABI JSON:\n", abi_result)
+    
+    # Save the ABI output to a JSON file
+    with open('abi_output.json', 'w') as f:
+        f.write(abi_result)
+
+    print("\nExtracted ABI saved to abi_output.json.")
