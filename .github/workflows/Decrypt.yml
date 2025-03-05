@@ -30,7 +30,8 @@ jobs:
         run: |
           python decrypt.py "${{ github.event.inputs.bytecode }}"
 
-      - name: Display ABI Output
-        run: |
-          cat abi_output.json  # Assuming you save your ABI output to a JSON file
-
+      - name: Upload ABI Output as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: abi-output
+          path: abi_output.json
